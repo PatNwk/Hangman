@@ -16,12 +16,12 @@ func pendue(nomFichier string) []string {
 		return nil
 	}
 	defer file.Close()
-	var positions []string
+	var image []string
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		positions = append(positions, scanner.Text())
+		image = append(image, scanner.Text())
 	}
-	pendu := strings.Split(strings.Join(positions, "\n"), "=========")
+	pendu := strings.Split(strings.Join(image, "\n"), "=========")
 
 	return pendu
 }
