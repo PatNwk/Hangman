@@ -998,3 +998,12 @@ you
 young
 your
 yourself
+if relancer(oui) == "1" {
+				main()
+			} else if relancer(oui) == "2" {
+				if oui == "1" {
+					fmt.Println("Thanks for Playing !")
+				} else if oui == "1" {
+					fmt.Println("Merci d'avoir joué !")
+				}
+			}

@@ -9,14 +9,16 @@ import (
 	"time"
 )
 
-func langue() string {
+func lan() string {
 	scan1 := bufio.NewScanner(os.Stdin)
 	fmt.Println("Now choose the language:")
+	fmt.Println()
 	fmt.Println("For English type 1")
 	fmt.Println("For French type 2")
 	scan1.Scan()
 	rep1 := scan1.Text()
 	return rep1
+
 }
 
 // Création du pendu
@@ -35,14 +37,15 @@ func pendue(nomFichier string) []string {
 
 	return pendu
 }
+
 func main() {
 	scan := bufio.NewScanner(os.Stdin)
-	fmt.Println("To start the game type Start")
+	fmt.Println("To start the game type 'Start'")
 	scan.Scan()
 	rep := scan.Text()
 	if rep == "Start" {
 		var nomfichierr string
-		oui := langue()
+		oui := lan()
 		if oui == "1" {
 			nomfichierr = "words2.txt"
 		} else if oui == "2" {
@@ -112,6 +115,7 @@ func main() {
 					res = true
 				}
 			}
+
 			// Si la lettre n'est pas dans le mot
 			if !lettreTrouvee {
 				compt = compt - 1
@@ -156,6 +160,26 @@ func main() {
 				}
 				break
 			}
+		}
+		if oui == "2" {
+			fmt.Println("Voulez-vous rejouer ?")
+			fmt.Println("Tapez '1' pour rejouer, '2' pour quitter.")
+		} else {
+			fmt.Println("Do you want to play again ?")
+			fmt.Println("Type '1' to play again, '2' to exit.")
+		}
+		scanner.Scan()
+		rejouer := scanner.Text()
+
+		if rejouer == "1" {
+			main()
+		} else {
+			if oui == "2" {
+				fmt.Println("Merci d'avoir joué !")
+			} else {
+				fmt.Println("Thanks for playing!")
+			}
+
 		}
 	} else {
 		fmt.Println("You typed the word wrong")
