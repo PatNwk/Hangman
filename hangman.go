@@ -39,6 +39,7 @@ func pendue(nomFichier string) []string {
 }
 
 func main() {
+	var listeeeee []string
 	scan := bufio.NewScanner(os.Stdin)
 	fmt.Println("To start the game type 'Start'")
 	scan.Scan()
@@ -70,14 +71,14 @@ func main() {
 		//fmt.Println(randomWord)
 		ind := len(randomWord)/2 - 1
 		lettre := string(randomWord[ind])
-
-		// Affichez le mot partiellement masqué
 		fmt.Println()
+		fmt.Println("--------------------------------------------------")
 		if oui == "1" {
 			fmt.Println("The game starts !")
 		} else if oui == "2" {
 			fmt.Println("Le jeu commence !")
 		}
+		// Affichez le mot partiellement masqué
 		fmt.Println()
 		motMasque := make([]string, len(randomWord))
 		for i := 0; i < len(randomWord); i++ {
@@ -104,20 +105,33 @@ func main() {
 			}
 			scanner.Scan()
 			reponse := scanner.Text()
+			reponse = strings.ToLower(reponse)
 			fmt.Println()
+			listeeeee = append(listeeeee, reponse)
+			if len(reponse) > 1 {
+				if oui == "1" {
+					fmt.Println("Please type only one letter")
+				} else {
+					fmt.Println("Veuillez taper qu'une seule lettre")
+				}
+			}
+			if oui == "1" {
+				fmt.Println("Letters already typed: ", listeeeee)
+			} else if oui == "2" {
+				fmt.Println("Lettres déjà tapées: ", listeeeee)
+			}
 			// Vérifiez si la lettre est présente dans le mot
 			lettreTrouvee = false
 			res := false
 			for i := 0; i < len(randomWord); i++ {
-				if reponse == string(randomWord[i]) {
+				if reponse == string(randomWord[i]) && len(reponse) < 2 {
 					motMasque[i] = reponse
 					lettreTrouvee = true
 					res = true
 				}
 			}
-
 			// Si la lettre n'est pas dans le mot
-			if !lettreTrouvee {
+			if !lettreTrouvee && len(reponse) < 2 {
 				compt = compt - 1
 				if oui == "1" {
 					fmt.Println("Not present in the word", compt, "attempts remaining")
@@ -126,19 +140,17 @@ func main() {
 				}
 			}
 			// Affichage du pendu
-			if compt >= 0 && compt < len(pendu)-1 {
+			if compt >= 0 && compt < len(pendu)-1 && len(reponse) < 2 {
 				if !res {
 					pendu[ratio] += "========="
 					fmt.Println(pendu[ratio])
 					ratio = ratio + 1
 				}
 			}
-
 			// Affichez le mot mis à jour
 			fmt.Println(strings.Join(motMasque, " "))
-
+			fmt.Println()
 			if !strings.Contains(strings.Join(motMasque, ""), "_") {
-				fmt.Println("Congrats !")
 				if oui == "1" {
 					fmt.Println("Congrats you find the word !")
 				} else if oui == "2" {
@@ -161,6 +173,7 @@ func main() {
 				break
 			}
 		}
+		// Demande si il veut rejouer
 		if oui == "2" {
 			fmt.Println("Voulez-vous rejouer ?")
 			fmt.Println("Tapez '1' pour rejouer, '2' pour quitter.")
@@ -177,9 +190,8 @@ func main() {
 			if oui == "2" {
 				fmt.Println("Merci d'avoir joué !")
 			} else {
-				fmt.Println("Thanks for playing!")
+				fmt.Println("Thanks for playing !")
 			}
-
 		}
 	} else {
 		fmt.Println("You typed the word wrong")
